@@ -53,15 +53,14 @@ class UserController extends Controller
             $token = session('access_token');
         } else {
             // Si no existe un token en la sesión, intentar autenticar nuevament
-
+            print_r($request['email']);
             $response = $this->login($request);
-            if($response->status() >= 200 && $response->status() < 300){
-                $token = $response->getData()->access_token;
+
+            if ($response->successful()) {
+                $token = $response->json()['access_token'];
                 session(['access_token' => $token]);
-                $users = User::all();
-                // $users = $response->json(); // Obtener los usuarios en formato JSON
-                return view('mantenedorUsuarios', compact('users'));
-            }else {
+                echo 'todo ok';
+            } else {
                 return back()->withErrors(['message' => 'Credenciales inválidas']);
             }
         }
@@ -69,21 +68,6 @@ class UserController extends Controller
         // Devolver una respuesta de error si no se proporciona un token válido
         return response()->json(['error' => 'Unauthorized'], 401);
     }
-    public function update(Request $request, User $user)
-    {
-        $request->validate([
-            'rol' => 'required|in:admin,usuario,supervisor',
-        ]);
-
-        $user->rol = $request->rol;
-        $user->save();
-
-        // Obtener todos los usuarios actualizados
-        $users = User::all();
-
-        return view('mantenedorUsuarios', compact('users'))->with('success', 'Rol actualizado correctamente.');
-    }
-
 
     //
 }

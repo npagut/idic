@@ -12,9 +12,8 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::delete('clients/{id}', [ClientController::class, 'destroy']);
     Route::put('/clients/{id}', [ClientController::class, 'update']);
 });
-Route::put('/users/{user}', [UserController::class, 'update'])->name('user.update');
 
 Route::post('users', [UserController::class, 'store']);
 Route::post('login', [UserController::class,'login']);
-Route::post('loginuser', [UserController::class, 'index'])->name('user.index');
+Route::post('loginuser', [UserController::class, 'index']);
 

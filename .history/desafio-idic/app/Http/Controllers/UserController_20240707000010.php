@@ -55,6 +55,7 @@ class UserController extends Controller
             // Si no existe un token en la sesión, intentar autenticar nuevament
 
             $response = $this->login($request);
+            echo $response;
             if($response->status() >= 200 && $response->status() < 300){
                 $token = $response->getData()->access_token;
                 session(['access_token' => $token]);

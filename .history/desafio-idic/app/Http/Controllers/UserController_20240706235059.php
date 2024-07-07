@@ -55,6 +55,7 @@ class UserController extends Controller
             // Si no existe un token en la sesión, intentar autenticar nuevament
 
             $response = $this->login($request);
+            echo $response;
             if($response->status() >= 200 && $response->status() < 300){
                 $token = $response->getData()->access_token;
                 session(['access_token' => $token]);
@@ -69,21 +70,6 @@ class UserController extends Controller
         // Devolver una respuesta de error si no se proporciona un token válido
         return response()->json(['error' => 'Unauthorized'], 401);
     }
-    public function update(Request $request, User $user)
-    {
-        $request->validate([
-            'rol' => 'required|in:admin,usuario,supervisor',
-        ]);
-
-        $user->rol = $request->rol;
-        $user->save();
-
-        // Obtener todos los usuarios actualizados
-        $users = User::all();
-
-        return view('mantenedorUsuarios', compact('users'))->with('success', 'Rol actualizado correctamente.');
-    }
-
 
     //
 }

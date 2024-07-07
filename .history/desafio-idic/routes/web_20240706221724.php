@@ -12,8 +12,5 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
 |
-*/
-
-Route::get('/', function () {
-    return view('loginUser');
-});
+// */Route::get('/', [UserController::class, 'loginMantenedor'])->name('user.index');
+Route::get('/', [UserController::class, 'loginMantenedor'])->name('user.index');
