@@ -25,13 +25,13 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('formulario.mostrar') }}">Formulario</a>
                     </li>
-
+                    <!-- Agrega más elementos de menú según tu aplicación -->
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('formulario.cerrarSesion') }}">Cerrar Sesion</a>
                     </li>
-
+                    <!-- Agrega más elementos de menú según tu aplicación -->
                 </ul>
             </div>
         </nav>
@@ -39,7 +39,7 @@
 
     <main role="main">
         <div class="container">
-            @yield('content')
+            @yield('content') <!-- Aquí se incluirá el contenido específico de cada vista -->
         </div>
     </main>
 

@@ -7,7 +7,6 @@ use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
-
 class UserController extends Controller
 {
     public function store(Request $request)
@@ -56,17 +55,18 @@ class UserController extends Controller
             // Si no existe un token en la sesión, intentar autenticar nuevament
 
             $response = $this->login($request);
-            if ($response->status() >= 200 && $response->status() < 300) {
+            if($response->status() >= 200 && $response->status() < 300){
                 $token = $response->getData()->access_token;
                 session(['access_token' => $token]);
                 $users = User::all();
                 // $users = $response->json(); // Obtener los usuarios en formato JSON
                 return view('mantenedorUsuarios', compact('users'));
-            } else {
+            }else {
                 return back()->withErrors(['message' => 'Credenciales inválidas']);
             }
         }
 
+        // Devolver una respuesta de error si no se proporciona un token válido
         return response()->json(['error' => 'Unauthorized'], 401);
     }
     public function update(Request $request, User $user)
@@ -85,10 +85,13 @@ class UserController extends Controller
     }
 
     public function logout()
-    {
-        auth()->logout();
-        session()->forget('access_token');
-        return view('loginUser');
-    }
+{
+    auth()->logout();
+    session()->forget('access_token');
+    return redirect()->route('/')->with('success', 'Sesión cerrada correctamente.');
+}
 
+
+
+    //
 }

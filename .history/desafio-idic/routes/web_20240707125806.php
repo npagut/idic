@@ -17,4 +17,3 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('loginUser');
 });
-Route::get('/logout', [UserController::class, 'logout'])->name('logout');
